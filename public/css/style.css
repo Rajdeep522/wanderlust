@@ -1,0 +1,156 @@
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+.container{
+    flex: 1;
+}
+
+.navbar{
+    background-color: rgb(238, 237, 237);
+    color: black !important;
+    /* padding: 10px; */
+    height: 5rem;
+}
+.nav-link{
+    color: black !important;
+}
+.fa-compass{
+    font-size: 3rem;
+    color: rgb(238, 14, 14);
+}
+.container-footer1{
+    background-color: rgb(238, 237, 237);
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+    /* space */
+    /* position: sticky-bottom; */
+
+    
+}
+.copyright{
+    width: 100%;
+}
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+
+.card{
+    border: none !important;
+    margin-bottom: 2rem !important;
+    padding-inline: 1rem !important;
+}
+.card-img-top{
+    border-radius: 1.5rem !important;
+    height: 20rem;
+    width: 100%;
+    object-fit: cover;
+}
+.card-body{
+    padding: 1rem !important;
+    padding-inline: 1rem !important;
+}
+.card-text{
+    font-weight: 600 !important;
+
+}
+
+.card:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+}
+
+.card-link{
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.card-img-overlay{
+    position: absolute;
+    color: red !important;
+    fill-opacity: red !important;
+    opacity: 0.3 !important;
+}
+.card-img-overlay:hover{
+    opacity: 1 !important;
+    
+}
+
+/* add btm */
+.btn-c{
+    background-color: rgb(238, 14, 14) !important;
+}
+
+
+/* edit btn */
+.edit-btn{
+    
+}
+
+.show-img{
+    height: 30vh;
+}
+.btns{
+    display: flex !important;
+    background-color: red !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+}
+
+/* //  <%= listing.price.toLocaleString("en-IN") %> */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  
+  text-align: center;
+} */

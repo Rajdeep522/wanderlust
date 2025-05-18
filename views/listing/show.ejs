@@ -1,0 +1,31 @@
+<% layout("/layouts/boilaplate") %>
+<body>
+    <div class="row mt-3">
+        <div class="col-8 offset-2 ">
+            <h3>Listing Details:</h3> 
+            <div class="card col-8 offset-1 mt-4" style="transform: none;" >
+            <img src="<%= listing.image.url%>" class="card-img-top show-img" alt="https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fno-copyright&psig=AOvVaw0H8TVpbvclUkhx5c9vpw2c&ust=1747644423954000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMCFzP7QrI0DFQAAAAAdAAAAABAE">
+            <div class="card-body">
+                <b> <p class="card-text" style="font-size: x-large;"><%= listing.title %></p></b>
+            </div>
+            <p>
+                <b>Description : </b><%= listing.description %> <br>
+                <b>Price : </b><%= listing.price %> / Night <br>
+                <b>Location : </b><%= listing.location %> <br>
+                <b>Country : </b><%= listing.country %>
+            </p>
+        </div>
+    </div>
+    </div>
+
+    <div class="row mb-3 mt-0">
+    <form action="/listing/<%=listing._id %>/edit" class=" col-1" method="get">
+        <button class="btn btns">Edit</button>
+    </form>
+    <form action="/listing/<%=listing._id %>?_method=DELETE" class=" col-1" method="post">
+        <button class="btn btns">Delete</button>
+    </form>
+    </div>
+    
+</body>
+

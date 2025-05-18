@@ -1,0 +1,47 @@
+<% layout("/layouts/boilaplate") %>
+<body>
+    <br> <br>
+    <!-- <ul> -->
+        <h3>All Listings</h3>
+        <!-- <form action="/listing/new" method="get">
+            <button>Create new </button> <br>
+        </form> -->
+
+        <div class="row">
+            <%for(let listing of allListing){%>
+            <div class="card" style="width: 20rem" >
+                <a href="/listing/<%= listing._id %>" class="card-link">
+                <div class="card-img-overlay"> &nbsp; &nbsp;<i class="fa-regular fa-heart"></i></div>
+                <img src="<%= listing.image.url%>" class="card-img-top"  style="height:20rem" alt="image">
+                    <div class="card-body">
+                        <b> <p class="card-text"><%= listing.title %></p></b>
+                        <p class="card-price"><%= listing.price %> / Night</p>
+                       
+                    </div>
+                </a>
+            </div>
+          <% }  %>
+        </div>
+        
+
+        
+
+
+
+
+
+
+
+
+
+        
+            
+        
+
+
+      
+
+   <!-- </ul> -->
+   
+</body>
+
