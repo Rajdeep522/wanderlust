@@ -57,9 +57,14 @@ app.get("/listing/new",async(req,res)=>{
 
 
 app.get("/listing/:id",async(req,res)=>{
-    let {id}=req.params;
-    const listing=await Listing.findById(id);
-    res.render("listing/show.ejs",{listing});
+    try{
+        let {id}=req.params;
+        const listing=await Listing.findById(id);
+        res.render("listing/show.ejs",{listing});
+    }catch(err){
+        next(err)
+    }
+    
 })
 
 
