@@ -55,7 +55,11 @@ app.get("/listing/:id",wrapeAsync(async(req,res,next)=>{
 
 app.post("/listing",wrapeAsync(async(req,res,next)=>{
     if(!req.body.listing) throw new ExpressError(400,"Invalid Listing Data");
-    // if(!req.body.listing.title) throw new ExpressError(400,"Title is required");
+    if(!req.body.listing.title) throw new ExpressError(400,"Title is required");
+    if(!req.body.listing.price) throw new ExpressError(400,"Price is required");
+    if(!req.body.listing.description) throw new ExpressError(400,"Description is required");
+    if(!req.body.listing.location) throw new ExpressError(400,"Location is required");
+    if(!req.body.listing.country) throw new ExpressError(400,"country is required");
     const NewListing=new Listing(req.body.listing);
     await NewListing.save();
     res.redirect("/listing");
