@@ -7,6 +7,10 @@ const methodOverride = require('method-override');
 const wrapeAsync=require('./utils/wrapAsync');
 const ExpressError=require('./utils/ExpressError');
 
+const cors = require('cors');
+app.use(cors());
+
+
 
 const ejsmate=require('ejs-mate');
 app.engine('ejs',ejsmate);
@@ -52,6 +56,7 @@ app.get("/listing/:id",wrapeAsync(async(req,res,next)=>{
     
 }))
 
+// create route
 
 app.post("/listing",wrapeAsync(async(req,res,next)=>{
     if(!req.body.listing) throw new ExpressError(400,"Invalid Listing Data");
