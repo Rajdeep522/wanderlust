@@ -6,6 +6,7 @@ const Listing=require("./models/listing");
 const methodOverride = require('method-override'); 
 const wrapeAsync=require('./utils/wrapAsync');
 const ExpressError=require('./utils/ExpressError');
+const {listingSchema}=require('./schema.js');
 
 const cors = require('cors');
 app.use(cors());
@@ -35,6 +36,21 @@ async function main(){
     await mongoose.connect('mongodb://localhost:27017/wanderlust');
 }
 
+
+
+// creating a middleware to schema validation
+const validateListing=(req,res,next)=>{
+    const {error}=listingSchema.validate(req.body);
+    if(error){
+        let message=error.details.map(el=>el.message).join(',');
+        throw new ExpressError(400,message);
+    }else{
+        next();
+    }
+}
+
+
+
 // show route
 
 app.get("/listing",wrapeAsync( async (req,res)=>{
@@ -56,15 +72,12 @@ app.get("/listing/:id",wrapeAsync(async(req,res,next)=>{
     
 }))
 
+
+
+
 // create route
 
-app.post("/listing",wrapeAsync(async(req,res,next)=>{
-    if(!req.body.listing) throw new ExpressError(400,"Invalid Listing Data");
-    if(!req.body.listing.title) throw new ExpressError(400,"Title is required");
-    if(!req.body.listing.price) throw new ExpressError(400,"Price is required");
-    if(!req.body.listing.description) throw new ExpressError(400,"Description is required");
-    if(!req.body.listing.location) throw new ExpressError(400,"Location is required");
-    if(!req.body.listing.country) throw new ExpressError(400,"country is required");
+app.post("/listing",validateListing,wrapeAsync(async(req,res,next)=>{ 
     const NewListing=new Listing(req.body.listing);
     await NewListing.save();
     res.redirect("/listing");
@@ -83,7 +96,7 @@ app.get("/listing/:id/edit",wrapeAsync(async(req,res)=>{
 
 //creating the update route
 
-app.put("/listing/:id",wrapeAsync(async(req,res)=>{
+app.put("/listing/:id",validateListing,wrapeAsync(async(req,res)=>{
     if(!req.body.listing) throw new ExpressError(400,"Invalid Listing Data");
     let {id}=req.params;
     const listing=await Listing.findByIdAndUpdate(id,req.body.listing,{new:true});
