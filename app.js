@@ -115,10 +115,11 @@ app.delete("/listing/:id",wrapeAsync(async(req,res)=>{
 
 
 
-
+//error handler middleware
 app.all('*',(req,res,next)=>{
     next(new ExpressError(404,"Page not found"));
 });
+
 
 
 app.use((err,req,res,next)=>{
