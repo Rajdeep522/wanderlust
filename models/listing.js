@@ -17,6 +17,11 @@ const listingSchema= new mongoose.Schema({
         require:true,
     },
     country: String,
+    //creating a reference to the review model
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review"
+    }],
 })
 
 const Listing =mongoose.model("Listing",listingSchema);

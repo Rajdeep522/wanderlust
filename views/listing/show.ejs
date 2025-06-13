@@ -2,11 +2,13 @@
 <body>
     <div class="row mt-3">
         <div class="col-8 offset-2 ">
-            <h3>Listing Details:</h3> 
-            <div class="card col-8 offset-1 mt-4" style="transform: none;" >
+            <div class="offset-1">
+            <h3 ><%= listing.title %></h3> 
+            <div class="card col-8 mt-4" style="transform: none;" >
             <img src="<%= listing.image.url%>" class="card-img-top show-img" alt="https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fno-copyright&psig=AOvVaw0H8TVpbvclUkhx5c9vpw2c&ust=1747644423954000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMCFzP7QrI0DFQAAAAAdAAAAABAE">
+            </div>
             <div class="card-body">
-                <b> <p class="card-text" style="font-size: x-large;"><%= listing.title %></p></b>
+                <!-- <b> <p class="card-text" style="font-size: x-large;"><%= listing.title %></p></b> -->
             </div>
             <p>
                 <b>Description : </b><%= listing.description %> <br>
@@ -26,6 +28,18 @@
         <button class="btn btns">Delete</button>
     </form>
     </div>
+
+    <!-- <div>
+        <form action="">
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            
+        </form>
+    </div> -->
     
 </body>
 
