@@ -8,6 +8,15 @@ const wrapeAsync=require('./utils/wrapAsync');
 const ExpressError=require('./utils/ExpressError');
 const {listingSchema, reviewSchema}=require('./schema.js');
 const Review=require("./models/review.js");
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require("./models/user.js");
+const session = require('express-session');
+
+const listingRoutes=require("./routes/listing.js");
+const reviewRoutes=require("./routes/review.js");
+const userRoutes=require("./routes/user.js");
+
 
 const cors = require('cors');
 app.use(cors());
@@ -61,6 +70,26 @@ const validateReview=(req,res,next)=>{
         next();
     }
 }
+
+
+app.get("/signup",(req,res)=>{
+    res.render("users/signup.ejs");
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // show route
@@ -158,6 +187,17 @@ app.delete("/listing/:id/reviews/:reviewId",wrapeAsync(async(req,res)=>{
 app.all('*',(req,res,next)=>{
     next(new ExpressError(404,"Page not found"));
 });
+
+
+// app.use(session(sessionOptions));
+// app.use(flash())
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 
