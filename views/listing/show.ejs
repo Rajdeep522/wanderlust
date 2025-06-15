@@ -11,7 +11,7 @@
             <div class="offset-1 mt-3">
             <p>
                 <b>Description : </b><%= listing.description %> <br>
-                <b>Price : </b><%= listing.price %> / Night <br>
+                <b>Price : </b><%= listing.price.toLocaleString() %> / Night <br>
                 <b>Location : </b><%= listing.location %> <br>
                 <b>Country : </b><%= listing.country %>
             </p>
@@ -27,18 +27,52 @@
         <button class="btn btns">Delete</button>
     </form>
     </div>
+    <hr>
+    <div class="col-8 offset-2">
+        <h4 class="mb-3">Reviews : </h4>
+        <form action="/listing/<%=listing._id %>/reviews" method="POST">
+            <div class="mt-2 mb-3">
+                <label for="rating">Rating </label>
+                <input name="Review[rating]" min="1" max="5" type="range" class="form-range" id="rating">
 
-    <!-- <div>
-        <form action="">
-            <div class="form-group">
-                <label for="comment">Comment:</label>
-                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                <label for="comment" class="form-label">Comment:</label>
+                <textarea name="Review[comment]" class="form-control" rows="3" id="comment" placeholder="Please leave a comment " name="comment" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-
-            
+            <button type="submit" class="btn btn-primary btn-offset-blue mb-2">Submit</button>
         </form>
-    </div> -->
+    </div>
+    <hr>
+        <%if(listing.Reviews.length === 0) {%>
+            <h5 class="offset-2">No reviews yet.</h5>
+        <%}
+        else {%>
+            <h4 class="offset-2">Reviews : </h4>
+        <%}%>
+        <div class="row">
+        <% for(review of listing.Reviews) { %>
+            <div class="row col-5 ms-3">
+                <div style="border: 1px solid #ccc; border-radius: 5px;">
+                        <div class="row col-5">
+                            <p><%= review.createdAt.toString().split(" ").slice(0,4).join(" ") %></p>
+                                <form action="/listing/<%=listing._id %>/reviews/<%=review._id%>?_method=DELETE" method="post">
+                                    <button class="btn"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                        </div>
+                    
+                    <p><%= review.comment %></p>
+                    <p><%= review.rating %> &starf;</p>
+                    <div class="offset-5"><p><%= review.createdAt.toString().split(" ")[4]%></div>
+                    <div >
+                        <button class="btn" style="border: none;"><i class="fa fa-thumbs-up"></i></button>
+                        <button class="btn"><i class="fa fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        <%}%>
+        </div>
+        
+    
+    
     
 </body>
 

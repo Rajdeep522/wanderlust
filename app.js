@@ -6,7 +6,8 @@ const Listing=require("./models/listing");
 const methodOverride = require('method-override'); 
 const wrapeAsync=require('./utils/wrapAsync');
 const ExpressError=require('./utils/ExpressError');
-const {listingSchema}=require('./schema.js');
+const {listingSchema, reviewSchema}=require('./schema.js');
+const Review=require("./models/review.js");
 
 const cors = require('cors');
 app.use(cors());
@@ -50,6 +51,17 @@ const validateListing=(req,res,next)=>{
 }
 
 
+//creating a middleware for review validation
+const validateReview=(req,res,next)=>{
+    const {error}=reviewSchema.validate(req.body);
+    if(error){
+        let message=error.details.map(el=>el.message).join(',');
+        throw new ExpressError(400,message);
+    }else{
+        next();
+    }
+}
+
 
 // show route
 
@@ -65,9 +77,11 @@ app.get("/listing/new",wrapeAsync(async(req,res)=>{
 }));
 
 
+// show route
+
 app.get("/listing/:id",wrapeAsync(async(req,res,next)=>{
         let {id}=req.params;
-        const listing=await Listing.findById(id);
+        const listing=await Listing.findById(id).populate('Reviews');
         res.render("listing/show.ejs",{listing});
     
 }))
@@ -111,6 +125,31 @@ app.delete("/listing/:id",wrapeAsync(async(req,res)=>{
     res.redirect("/listing");
 }));
 
+
+
+// post route
+// for reviews
+app.post("/listing/:id/reviews",validateReview, wrapeAsync(async(req,res)=>{
+    let listing=await Listing.findById(req.params.id);
+    let newReviews=new Review(req.body.Review);
+
+    listing.Reviews.push(newReviews);
+    await newReviews.save();
+    await listing.save();
+    console.log("new review saved");
+    res.redirect(`/listing/${listing._id}`);
+}));
+
+
+
+// delete route for Review
+
+app.delete("/listing/:id/reviews/:reviewId",wrapeAsync(async(req,res)=>{
+    let {id,reviewId}=req.params;
+    await Listing.findByIdAndUpdate(id,{$pull:{Reviews:reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listing/${id}`);
+}));
 
 
 

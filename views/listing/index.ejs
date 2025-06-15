@@ -15,7 +15,7 @@
                 <img src="<%= listing.image.url%>" class="card-img-top"  style="height:20rem" alt="image">
                     <div class="card-body">
                         <b> <p class="card-text"><%= listing.title %></p></b>
-                        <p class="card-price"><%= listing.price %> / Night</p>
+                        <p class="card-price"><%= listing.price.toLocaleString() %> / Night</p>
                        
                     </div>
                 </a>
